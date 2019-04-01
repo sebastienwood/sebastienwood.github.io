@@ -1,4 +1,4 @@
-#A
+#
 # This file contains configuration flags to customize your site
 #
 
@@ -77,6 +77,7 @@ sass:
 gems:
   - jekyll-sitemap # Create a sitemap using the official Jekyll sitemap gem
   - jekyll-feed # Create an Atom feed using the official Jekyll feed gem
+  - jekyll-remote-theme
 
 # Exclude these files from your production _site
 exclude:
@@ -87,4 +88,5 @@ exclude:
   - CNAME
 
 theme: minimal-mistakes-jekyll
+remote_theme: "mmistakes/minimal-mistakes"
 minimal_mistakes_skin: "dark"
