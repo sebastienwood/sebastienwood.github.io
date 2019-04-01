@@ -86,4 +86,5 @@ exclude:
   - README.md
   - CNAME
 
-theme: jekyll-theme-cayman
+theme: minimal-mistakes-jekyll
+minimal_mistakes_skin: "dark"
