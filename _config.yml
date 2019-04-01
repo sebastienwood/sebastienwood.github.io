@@ -77,6 +77,9 @@ sass:
 gems:
   - jekyll-sitemap # Create a sitemap using the official Jekyll sitemap gem
   - jekyll-feed # Create an Atom feed using the official Jekyll feed gem
+
+plugins:
+  - jekyll-include-cache
   - jekyll-remote-theme
 
 # Exclude these files from your production _site
@@ -87,6 +90,6 @@ exclude:
   - README.md
   - CNAME
 
-theme: minimal-mistakes-jekyll
-remote_theme: "mmistakes/minimal-mistakes"
+# theme: minimal-mistakes-jekyll
+remote_theme: "mmistakes/minimal-mistakes@4.15.2"
 minimal_mistakes_skin: "dark"
