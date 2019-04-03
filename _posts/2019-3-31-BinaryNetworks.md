@@ -1,7 +1,7 @@
 ---
 layout: post
 comments: true
-title: The challenge for fewer bits
+title: The challenge for fewer bits in Deep Learning
 ---
 
 Usual deep learning parameters are stored on 32 bits FP hardware (though 16 bits has became supported by Pytorch, hopefully things are on a good way !).
@@ -29,15 +29,15 @@ Results are mostly good if the network is "big" enough. Savings are hard to see 
 
 Computationnal savings would be scarce since the convolutions are still operating on FP inputs.  
 
-DoReFa-Net :
+*DoReFa-Net :*
 
-Binary-Net :
+*Binary-Net :*
 
-XNOR-Net :
+*XNOR-Net :*
 
 # PyTorch time
 
-2 paths : external weight manager or customs layers.
+3 paths I know of : external weight manager (an object called at will to quantize), customs layers which autoregulate themselves, or forward/backwards hooks. 
 
 ## External Weight Manager
 Can be applied to any nn.Module on the fly. Severe limitations if we want to modify in-depth the behavior of e.g. grads : would require far more code to do the same results as path 2.
@@ -45,7 +45,8 @@ Can be applied to any nn.Module on the fly. Severe limitations if we want to mod
 '''some_tensor.data.copy_''' allow to modify in place a Pytorch tensor value.
 Logic may be included in the quantization function, e.g. applying to Conv2d layers only. Would need to test additionnal attributes at model initialization to diversify the logics used. E.g. for ResNet, differentiating blocks numbers. 
 
-'''class EWM():
+'''
+class EWM():
       def __init__(self, model):
       	  # grab the pointer to the real weights
 	  self.real_weights = []
@@ -63,5 +64,12 @@ Logic may be included in the quantization function, e.g. applying to Conv2d laye
 
 ## Custom layers
 Require to redefine each architecture using the custom layers. Can do anything.
+
+## Forward/backward hooks
+Pytorch offers to register forward and backwards hooks on a model. Pytorch documentation for this method is parse/non-existent.
+
+It appears that Pytorch forward hook doesn't allow on the fly modification to the output tensor (e.g. applying our  quantization function would fail). However the backward hooks allow to modify the grad tensor (developer logic ?).
+
+Given https://github.com/pytorch/pytorch/issues/262 it seems that it's just awaiting a courageous developer to implement a functional forward hook. L-*hook forward* to it !
 
 
