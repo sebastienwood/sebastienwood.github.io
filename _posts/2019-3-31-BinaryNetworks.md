@@ -15,9 +15,12 @@ Another use case would be to scale properly the needs for datacenters.
 ## Concepts
 Quantization : putting things in bins (AKA discretization). Useful to switch from a mulitple bits/bytes representation to fewer bits/bytes. Binarization is a quantization on 1 bit (2 possible states).
 
+Normalized energy : 
+
 # Architecture review
 
-*Binary Connect (Courbariaux & al. in 2015)* : from 32 FP weights to 1 bit weights. Using 32x less memory at run time. At training, makes use of FP representation to update the weights. Then reduce the weights to the set {-1, 1} with the sign(weight) function for all forward passes.
+##Binary Connect (Courbariaux & al. in 2015)
+From 32 FP weights to 1 bit weights. Using 32x less memory at run time. At training, makes use of FP representation to update the weights. Then reduce the weights to the set {-1, 1} with the sign(weight) function for all forward passes.
 
 The set with negative and positive values will allow the network to use ReLU activations functions. "Naïve" binary (0, 1) would otherwise cause all the values to be positive eventually (rendering ReLU effectless). It would require tricks like batch normalization to keep negative values. 
 
@@ -45,7 +48,7 @@ Can be applied to any nn.Module on the fly. Severe limitations if we want to mod
 '''some_tensor.data.copy_''' allow to modify in place a Pytorch tensor value.
 Logic may be included in the quantization function, e.g. applying to Conv2d layers only. Would need to test additionnal attributes at model initialization to diversify the logics used. E.g. for ResNet, differentiating blocks numbers. 
 
-'''
+```python
 class EWM():
       def __init__(self, model):
       	  # grab the pointer to the real weights
@@ -60,7 +63,7 @@ class EWM():
 	  for i, m in enumerate(self.real_weights):
 	      self.stored_weights[i].data.copy_(m)
 	      m.data.copy_(quantization_function(m))
-'''
+```
 
 ## Custom layers
 Require to redefine each architecture using the custom layers. Can do anything.
@@ -72,4 +75,27 @@ It appears that Pytorch forward hook doesn't allow on the fly modification to th
 
 Given https://github.com/pytorch/pytorch/issues/262 it seems that it's just awaiting a courageous developer to implement a functional forward hook. L-*hook forward* to it !
 
+## Diving deeper
+If you want to optimize the actual hardware ops (CUDA 1 bit, etc) while it's not supported officially by either Pytorch or NVIDIA, you're bound to write custom kernels (a kernel is just a piece of software for CUDA) and custom Pytorch OPS. Cross your fingers for backward compatibility in updates of those frameworks.
 
+Otherwise, FPGA (a customizable piece of hardware) can be used too, mostly if you're planning to use it for inference only (may be overly complicated either way).
+
+# TL;DR
+You can effectively quantize the building blocs of a neural networks and still manage to reach a good accuracy.
+
+There are diverse way to quantize the blocs, with the challenging objective to reduce as much as possible the bits used while keeping a high accuracy. The inherent quantization noise can act as a regulariser.
+
+It all depends on the context for the results, and the field is still too novel to ensure one basic quantization scheme will work flawlessly across all models. I personnally would tend to think overly large networks (i.e. many parameters)  would manage to work in a quantized context. The real challenge lies in quantizing small enough networks.
+
+Small enough networks echoes the fact that the same energy savings could be achieved by only reducing the network size. It thus matter to compare the energy at a constant accuracy (AKA normalized energy) so as to have more meaningful hindsights toward the *real* value of the quantization scheme proposed.
+
+In the end, you just reduce the amount of information (or reduce the entropy) of the network.
+
+# Open questions
+
+- what are the necessary conditions for a quantization scheme to work ?
+- how would it cope in contexts of smalls tweaks like separable convolutions ?
+- given the finite combination of filters for a binarized CNN, what can we learn about the dynamics of a neural networks ? (for that last sentence, works like Capsule Network (Hinton) and the general criticism of current SotA Deep Learning seems pretty relevant) 
+
+*This article is a WIP*
+*Feel free to contact me on Twitter if you have any question/remark/suggestion*
