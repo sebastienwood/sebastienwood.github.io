@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 comments: true
 title: The challenge for fewer bits in Deep Learning
 ---
@@ -13,13 +13,18 @@ The main use case is for edge computing or low resources hardware : with those c
 Another use case would be to scale properly the needs for datacenters. 
 
 ## Concepts
-Quantization : putting things in bins (AKA discretization). Useful to switch from a mulitple bits/bytes representation to fewer bits/bytes. Binarization is a quantization on 1 bit (2 possible states).
+*Quantization* : putting things in bins (AKA discretization). Useful to switch from a mulitple bits/bytes representation to fewer bits/bytes. Binarization is a quantization on 1 bit (2 possible states).
 
-Normalized energy : 
+*Normalized energy* : to better understand the gains of a quantization tweak regarding energy, we need to compare what's comparable. The network should be considered as a whole and thus the given performance (eg. accuracy) should be interpreted under the light of the global energy consumption.
+
+Consider for example a 1 bit quantization scheme that would degrade the performance by a margin. The same performance could be achieved by reducing the network depth, hence reducing the memory/energy/throughput by a proportional amount.
+
+Considering normalized energy as a metric is appropriate for a rigorous scientific approach.
 
 # Architecture review
 
-##Binary Connect (Courbariaux & al. in 2015)
+## Binary Connect (Courbariaux & al. in 2015)
+
 From 32 FP weights to 1 bit weights. Using 32x less memory at run time. At training, makes use of FP representation to update the weights. Then reduce the weights to the set {-1, 1} with the sign(weight) function for all forward passes.
 
 The set with negative and positive values will allow the network to use ReLU activations functions. "Naïve" binary (0, 1) would otherwise cause all the values to be positive eventually (rendering ReLU effectless). It would require tricks like batch normalization to keep negative values. 
@@ -28,15 +33,23 @@ It will reduce the diversity of filters for a convolution to a combination of 2 
 
 > What if it used separable convolutions ? 2^(3+3)=64 possibles states. Would the result keep up ?
 
-Results are mostly good if the network is "big" enough. Savings are hard to see with Pytorch since a weight bitwidth cannot be defined out the scope 16/32bits supported natively.
+Results are mostly good if the network is "big" enough. Savings are hard to see with Pytorch since a weight bitwidth cannot be defined out the scope 16/32bits supported natively. Some memory saving may be achieveable would the binarized weights be saved, hence discarding the real valued weights. It's unclear if doing so would harm potential post-treatments.
 
 Computationnal savings would be scarce since the convolutions are still operating on FP inputs.  
 
-*DoReFa-Net :*
+## DoReFa-Net (Zhou & al. in 2016)
 
-*Binary-Net :*
+Has a more holistic approach for low bitwidth networks : quantization is applied to activations and gradients as well. DoReFa stands for the 1-bit weight, 2-bits activation and 6-bits gradients that the authors used on an Alexnet experiment with the ImageNet dataset (an octave double the frequency, whereas they double the bitwidth. **GOOD PUN**). Authors have shown that a performance comparable to the 32-bits network was possible on the SVHN and ImageNet dataset. A comparison is made for a few handpicked combinations and it seems it was the most interesting.
 
-*XNOR-Net :*
+> Combinatorial choices had to be made, but the approach seems rather heuristically-guided. No normalized energy-like measure is proposed, which tends to blur the conclusions we could make.
+
+Weights and activations make use of a deterministic quantization scheme; while the gradients "need to be stochastically quantized". First and last layers are kept out of the optimization they propose since people tend to agree doing so would tends to degrade "too much" (without a measure of "how much") the network performance.
+
+Authors propose a quantization scheme as follow :
+
+*Binary-Net* :
+
+*XNOR-Net :
 
 # PyTorch time
 
@@ -98,4 +111,5 @@ In the end, you just reduce the amount of information (or reduce the entropy) of
 - given the finite combination of filters for a binarized CNN, what can we learn about the dynamics of a neural networks ? (for that last sentence, works like Capsule Network (Hinton) and the general criticism of current SotA Deep Learning seems pretty relevant) 
 
 *This article is a WIP*
+
 *Feel free to contact me on Twitter if you have any question/remark/suggestion*
