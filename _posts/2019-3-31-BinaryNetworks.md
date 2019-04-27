@@ -1,5 +1,5 @@
 ---
-layout: single
+layout: post
 comments: true
 title: The challenge for fewer bits in Deep Learning
 ---

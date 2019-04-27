@@ -18,14 +18,15 @@ html {
 }
 
 body {
-  background: $white;
+	background: $white;
   font: 18px/1.4 $helvetica;
   color: $darkGray;
 }
 
 .container {
   margin: 0 auto;
-  max-width: 100%;
+  max-width: 740px;
+  padding: 0 10px;
   width: 100%;
 }
 
@@ -68,11 +69,11 @@ p {
 }
 
 a {
-  color: #333333;
+  color: $blue;
   text-decoration: none;
 	cursor: pointer;
   &:hover, &:active {
-    color: #00ace7;
+    color: $blue;
   }
 }
 
@@ -115,9 +116,8 @@ img {
 }
 
 .date {
-  font-style: normal;
-  color: #333333;
-  font-size: 12px;
+  font-style: italic;
+  color: $gray;
 }
 
 // Specify the color of the selection
@@ -155,23 +155,21 @@ img {
 }
 
 .masthead {
-  padding: 20px 100px 20px 50px
-  ;
+  padding: 20px 0;
   border-bottom: 1px solid $lightGray;
-  background-color:black;
-  
+
   @include mobile {
     text-align: center;
   }
 }
 
-/*.site-avatar {
+.site-avatar {
   float: left;
   width: 70px;
   height: 70px;
   margin-right: 15px;
 
- @include mobile {
+  @include mobile {
     float: none;
     display: block;
     margin: 0 auto;
@@ -180,11 +178,7 @@ img {
   img {
     border-radius: 5px;
   }
-}*/
-
-.site-avatar {
-  display:none;
- }
+}
 
 .site-info {
   float: left;
@@ -198,7 +192,7 @@ img {
 
 .site-name {
   margin: 0;
-  color: #00ace7;
+  color: $darkGray;
   cursor: pointer;
   font-family: $helveticaNeue;
   font-weight: 300;
@@ -206,18 +200,14 @@ img {
   letter-spacing: 1px;
 }
 
-/*.site-description {
+.site-description {
   margin: -5px 0 0 0;
-  color: white;
+  color: $gray;
   font-size: 16px;
 
   @include mobile {
     margin: 3px 0;
   }
-}*/
-
-.site-description {
-  display:none;
 }
 
 nav {
@@ -235,7 +225,7 @@ nav {
 
   a {
     margin-left: 20px;
-    color: white;
+    color: $darkGray;
     text-align: right;
     font-weight: 300;
     letter-spacing: 1px;
@@ -251,17 +241,9 @@ nav {
 // .main
 //
 
-#main {
-  max-width: calc(800px - (30px * 2));
-  margin-right: auto; 
-  margin-left: auto;
-  padding-right: 30px;
-  padding-left: 30px;
-}
-
 .posts > .post {
   padding-bottom: 2em;
-  border-bottom: 2px solid #f5f5f5;
+  border-bottom: 1px solid $lightGray;
 }
 
 .posts > .post:last-child {
@@ -278,37 +260,21 @@ nav {
     font-size: 22px;
     font-style: italic;
   }
+
   .comments {
     margin-top: 10px;
   }
 
   .read-more {
-    text-transform: capitalize;
+    text-transform: uppercase;
     font-size: 15px;
   }
 }
-
-.post h1 {
-  color:#00ace7;
-  margin: 1em 0 5px;
-}
-
-.blockquote {
-  color: #999999;
-  border-left: 4px solid #bbbbbb;
-  padding: 10px;
-  margin: 10px;
-  padding-left: 25px;
-  font-size: 18px;
-  letter-spacing:-1px;
-  background: #f0f0f0;
- }
 
 .wrapper-footer {
   margin-top: 50px;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
-
   background-color: $lightGray;
 }
 

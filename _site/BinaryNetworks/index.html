@@ -46,38 +46,18 @@
 
           <nav>
             <a href="/">Blog</a>
-            <a href="/about">About</a>
+            <a href="/me">About</a>
           </nav>
         </header>
       </div>
     </div>
 
     <div id="main" role="main" class="container">
-      
+      <article class="post">
+  <h1>The challenge for fewer bits in Deep Learning</h1>
 
-
-
-<div id="main" role="main">
-  
-
-  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="The challenge for fewer bits in Deep Learning">
-    <meta itemprop="description" content="Usual deep learning parameters are stored on 32 bits FP hardware (though 16 bits has became supported by Pytorch, hopefully things are on a good way !).">
-    <meta itemprop="datePublished" content="March 31, 2019">
-    
-
-    <div class="page__inner-wrap">
-      
-        <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">The challenge for fewer bits in Deep Learning
-</h1>
-          
-        </header>
-      
-
-      <section class="page__content" itemprop="text">
-        
-        <p>Usual deep learning parameters are stored on 32 bits FP hardware (though 16 bits has became supported by Pytorch, hopefully things are on a good way !).</p>
+  <div class="entry">
+    <p>Usual deep learning parameters are stored on 32 bits FP hardware (though 16 bits has became supported by Pytorch, hopefully things are on a good way !).</p>
 
 <p>Fewer bits will reduce by a huge margin the total resources requirements : memory, compute, communication between hardware parts. In the extreme case of binarization, demanding multiplication and/or division may become bitwise shifts (moving the binary representation to the left or the right).</p>
 
@@ -192,40 +172,30 @@ Logic may be included in the quantization function, e.g. applying to Conv2d laye
 
 <p><em>Feel free to contact me on Twitter if you have any question/remark/suggestion</em></p>
 
-        
-      </section>
+  </div>
 
-      <footer class="page__meta">
-        
-        
-
-
-        
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-03-31T00:00:00-04:00">March 31, 2019</time></p>
-        
-      </footer>
-
-      
-
-      
-  <nav class="pagination">
-    
-      <a href="#" class="pagination--pager disabled">Previous</a>
-    
-    
-      <a href="/AdvancedTricks/" class="pagination--pager" title="Advanced tricks in Deep Learnings
-">Next</a>
-    
-  </nav>
-
-    </div>
-
-    
-  </article>
+  <div class="date">
+    Written on March 31, 2019
+  </div>
 
   
-  
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'sebastienwood-github-io';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
+
+</article>
 
     </div>
 
