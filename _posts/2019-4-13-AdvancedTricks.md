@@ -1,6 +1,5 @@
 ---
 layout: post
-comments: true
 title: Advanced tricks in Deep Learnings
 ---
 

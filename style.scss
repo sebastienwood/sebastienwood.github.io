@@ -183,10 +183,6 @@ img {
   }
 }
 
-/*.site-avatar {
-  display:none;
- }*/
-
 .site-info {
   float: left;
 
@@ -322,3 +318,25 @@ footer {
 // ... Otherwise it really bloats up the top of the CSS file and makes it difficult to find the start
 @import "highlights";
 @import "svg-icons";
+
+//
+// TOC
+//
+
+// Adding 'Contents' headline to the TOC
+#markdown-toc::before {
+  content: "Contents";
+  font-weight: bold;
+}
+
+// Using numbers instead of bullets for listing
+#markdown-toc ul {
+  list-style: decimal;
+}
+
+#markdown-toc {
+  border: 1px solid #aaa;
+  padding: 1.5em;
+  list-style: decimal;
+  display: inline-block;
+}
