@@ -165,7 +165,7 @@ img {
   }
 }
 
-/*.site-avatar {
+.site-avatar {
   float: left;
   width: 70px;
   height: 70px;
@@ -178,13 +178,14 @@ img {
   }
 
   img {
-    border-radius: 5px;
+    //border-radius: 5px;
+    border-radius: 50%;
   }
-}*/
+}
 
-.site-avatar {
+/*.site-avatar {
   display:none;
- }
+ }*/
 
 .site-info {
   float: left;
