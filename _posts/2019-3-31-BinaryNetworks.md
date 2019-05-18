@@ -1,5 +1,5 @@
 ---
-layout: single
+layout: post
 comments: true
 title: The challenge for fewer bits in Deep Learning
 ---
@@ -108,7 +108,7 @@ In the end, you just reduce the amount of information (or reduce the entropy) of
 
 - what are the necessary conditions for a quantization scheme to work ?
 - how would it cope in contexts of smalls tweaks like separable convolutions ?
-- given the finite combination of filters for a binarized CNN, what can we learn about the dynamics of a neural networks ? (for that last sentence, works like Capsule Network (Hinton) and the general criticism of current SotA Deep Learning seems pretty relevant) 
+- given the finite combination of filters for a binarized CNN, what can we learn about the dynamics of a neural networks ? (works like Capsule Network (Hinton) and the general criticism of current SotA Deep Learning seems pretty relevant) 
 
 *This article is a WIP*
 
