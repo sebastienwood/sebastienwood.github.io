@@ -92,5 +92,5 @@ exclude:
   - CNAME
 
 # theme: minimal-mistakes-jekyll
-remote_theme: "mmistakes/minimal-mistakes@4.16.0"
+remote_theme: "mmistakes/minimal-mistakes@4.16.3"
 minimal_mistakes_skin: "dark"
