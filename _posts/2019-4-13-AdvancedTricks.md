@@ -11,8 +11,9 @@ However, after a torough year on Twitter (where the Deep Learning community is q
 
 In this post, I'll give some general ideas and classify them in Table 1 so one could have a quick answer for a given need.
 
-# The (Mighty) Table 1
+# The Table 1
 
+{% toc %}
 Jekyll TOC in construction ¯\\_(ツ)_/¯
 
 # The Compendium of Network Tricks
