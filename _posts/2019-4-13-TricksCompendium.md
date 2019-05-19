@@ -1,13 +1,10 @@
 ---
-layout: post
-title: A compendium of tricks in Deep Learnings
+title: "A compendium of tricks in Deep Learnings"
+categories: tricks
+date:   2019-05-19 11:30:19 -0400
 ---
 
-Sometime you wish to had all the tricks for Deep Learnings summarized at one place. I hope to gather slowly but steadily them all in this post.
-
-# Tricks list
-
-Jekyll TOC in construction ¯\\_(ツ)_/¯
+Sometime you wish to had all the tricks for Deep Learnings summarized at one place. I hope to gather them all slowly but steadily in this post. Everything is accessible with the navigation bar on the right.
 
 # The Compendium of Tricks
 
@@ -21,7 +18,7 @@ I assume the idea of 2D convolution is quite well known. It however is generaliz
 ## 1x1 Convolution
 (bottleneck)
 
-A 1x1 convolution is a special kind of 3D convolution. It means the receptive field is 1x1xk where k is the depth of the receptive field. It helps to synthetize across the feature maps to keep only the relevant features.
+A 1x1 convolution is a special kind of 3D convolution. It means the receptive field is $1\times 1\times k$ where $k$ is the depth of the receptive field. It helps to synthetize across the feature maps to keep only the relevant features.
 
 ## Dilated Convolutions
 (ops)
@@ -31,9 +28,9 @@ Traditionnal convolutions have parameters stride, filter size, padding. Dilation
 ## Separable Convolutions
 (ops, efficiency)
 
-Simple and wide spread idea of using two 1d filters to represent one 2D filter. Eg. for a $3x3$ filter, you could use a $3x1$ filter followed by a $1x3$ filter to have the same result. Computerphile made a great video about this : https://www.youtube.com/watch?v=SiJpkucGa1o.
+Simple and wide spread idea of using two 1D filters to represent one 2D filter. Eg. for a $3\times 3$ filter, you could use a $3\times 1$ filter followed by a $1\times 3$ filter to have the same result. Computerphile made a great video about this : [Separable Filters and a Bauble](https://www.youtube.com/watch?v=SiJpkucGa1o).
 
-In the usual $3x3$ filter example, this leads to 6 multiplications per convolution op instead of 9. As the filter grows in size, it gets really interesting in terms of computational savings. If you're interested in reducing the nb of parameters, it also means you only have to store 6 weights instead of 9.
+In the usual $3\times 3$ filter example, this leads to 6 multiplications per convolution op instead of 9. As the filter grows in size, it gets really interesting in terms of computational savings. If you're interested in reducing the nb of parameters, it also means you only have to store 6 weights instead of 9.
 
 Unfortunately, not all filters can be *separated*. The famous Sobel filter for edge detection is an example of a separable filter.
 
@@ -48,6 +45,6 @@ Introduced by ResNet, a residual connexion is a sum from a layer $l$ at layer $l
 
 The community of Deep Learning offer an infinite source of tricks to enhance your network. You can find an hopefully interesting sample of those in this post.
 
-Feel free to give me a feedback, like a tricks that is missing from this list and you would like to see up there ! :)
+Feel free to give me a feedback, like a tricks that is missing from this list and you would like to see up there ! :smile:
 
 *This article is WIP* 
