@@ -151,6 +151,27 @@ Make use of a model trained on different task to bootstrap on a new task (with p
 
 One model 
 
+## Augmentations
+
+Are performed on the data at hand to ensure equivariance in the results. Standard augmentations are flipping, rotating, changing luminosity, warping, etc. They must be applied in a way such that an human could still give a good answer on the augmented data.
+
+### Equivariance
+
+## Mixup
+(aug)
+
+Mixup consist in randomly mixing two input images of different classes and 
+
+## Cutout
+(aug)
+
+Cutout consist in randomly removing parts of the input image (in vision) so that the network should make up for what's missing.
+
+## Student teacher architecture
+(architecture)
+
+In such an architecture, a good network is trained (teacher). Then, a smaller network (student) is also trained to mimick the outputs of the teacher. The teacher has uncertainty on its output (soft labels) and the task is thus easier for the student to approximate the soft labels thant the hard labels. 
+
 # A wrap up
 
 The community of Deep Learning offer an infinite source of tricks and concepts to enhance models. You can find an hopefully interesting sample of those in this post.
