@@ -7,7 +7,7 @@ sidebar:
     - text: "We show that a basic GAN can manage to output something convincing with a ridiculously small dataset for the needs of anomaly detection in semiconductor industry."
 ---
 
-To be presented in June @ Munich.
+Presented in June @Munich by my teammate. Nominated for best paper award.
 
 ## Summary
 We make use of VAE and GAN with an extremely limited dataset (approx 20 samples) of wafers exhibiting anomalies. Results are compared given the likelihood of the generated wafers (human evaluation). We show that GAN manage to achieve a convincing result, while VAE fails. 
@@ -22,3 +22,7 @@ There aren't many datasets on industrial problems in the wild and semiconductor 
 **Q : Wouldn't privacy enabled neural networks be a good way to go then ?**
 
 A :Could be for problems where diagnosis is not needed. Here we need to explicitely tell what's going wrong and where on the wafer. As we need to *understand* what's happening and the output of the model, we can't operate on a black box input/output. Hence our generative approach.
+
+**Q : Isn't a wafer picture overall a simple disk ?**
+
+A : It is, but the devil hides in the details. In our case, small perturbations may indicate a faulty chip on the wafer. In essence, capturing those fine grained perturbation would be an ideal scenario. For now, managing to grasp a coherent wafer with not so subtle perturbations is a "good" result.
