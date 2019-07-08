@@ -21,11 +21,20 @@ Consider for example a 1 bit quantization scheme that would degrade the performa
 
 Considering normalized energy as a metric is appropriate for a rigorous scientific approach.
 
+### Lazyness notations
+
+- $\textbf{W}$ is a weight matrix
+- $\textbf{I}$ is the input matrix
+- $\odot$ is the element wise product
+- $*$ is the convolution op. when used on matrix (otherwise, multiplication)
+- a bold letter in a math context is usually a matrix
+- $w$, $h$ denote width and heigth of a convolution filter unless stated otherwise
+
 # Architecture review
 
 ## Binary Connect (Courbariaux & al. in 2015)
 
-From 32 FP weights to 1 bit weights. Using 32x less memory at run time. At training, makes use of FP representation to update the weights. Then reduce the weights to the set {-1, 1} with the sign(weight) function for all forward passes.
+From 32 FP weights to 1 bit weights. Using 32x less memory at run time. When backpropagating, makes use of FP representation to update the weights. Then reduce the weights to the set ${-1, 1}$ with the $sign(weight)$ function for all forward passes.
 
 The set with negative and positive values will allow the network to use ReLU activations functions. "Naïve" binary (0, 1) would otherwise cause all the values to be positive eventually (rendering ReLU effectless). It would require tricks like batch normalization to keep negative values. 
 
@@ -35,28 +44,36 @@ It will reduce the diversity of filters for a convolution to a combination of 2 
 
 Results are mostly good if the network is "big" enough. Savings are hard to see with Pytorch since a weight bitwidth cannot be defined out the scope 16/32bits supported natively. Some memory saving may be achieveable would the binarized weights be saved, hence discarding the real valued weights. It's unclear if doing so would harm potential post-treatments.
 
-Computationnal savings would be scarce since the convolutions are still operating on FP inputs.  
+Computationnal savings are good if there is a good handle of the new operations : change of sign for the multiplication operation and simple addition/substraction as usual.  
 
 ## DoReFa-Net (Zhou & al. in 2016)
 
-Has a more holistic approach for low bitwidth networks : quantization is applied to activations and gradients as well. DoReFa stands for the 1-bit weight, 2-bits activation and 6-bits gradients that the authors used on an Alexnet experiment with the ImageNet dataset (an octave double the frequency, whereas they double the bitwidth. **GOOD PUN**). Authors have shown that a performance comparable to the 32-bits network was possible on the SVHN and ImageNet dataset. A comparison is made for a few handpicked combinations and it seems it was the most interesting.
+Has a more holistic approach for low bitwidth networks : quantization is applied to activations and gradients as well. DoReFa stands for the 1-bit weight, 2-bits activation and 6-bits gradients that the authors used on an Alexnet experiment with the ImageNet dataset (an octave double the frequency, whereas they double the bitwidth). Authors have shown that a performance comparable to the 32-bits network was possible on the SVHN and ImageNet dataset. A comparison is made for a few handpicked combinations and it seems it was the most interesting.
 
-> Combinatorial choices had to be made, but the approach seems rather heuristically-guided. No normalized energy-like measure is proposed, which tends to blur the conclusions we could make.
+> Combinatorial choices had to be made, but the approach seems rather heuristically-guided. 
 
 Weights and activations make use of a deterministic quantization scheme; while the gradients "need to be stochastically quantized". First and last layers are kept out of the optimization they propose since people tend to agree doing so would tends to degrade "too much" (without a measure of "how much") the network performance.
 
 Authors propose a quantization scheme as follow :
 
+## XNOR-Net / Binary Weight Network (Rastegari et al. in 2016)
+
+Let's begin with BWN, a simple tweak to BC. The author propose to add a scaling factor $\alpha = \frac{1}{n} ||W||_{l1}$ (the average of FP32 weights) at the end of a binary convolution to make up for the loss of information due to the weight binarization. It would seem that it results in more accurate networks. At the same time, the memory hurdle is "relatively" small (store $\alpha$ for all filters) and there is an additional multiplication to perform for each output of a filter.
+
+> In fact, it's a generalization of BC for which $\alpha = 1$. 
+
+XNOR-Net is more aggressive : inputs of filters are also binarized. To do so, all activations are also binarized using the $sign(\textbf{W})*\beta$ function. $\beta$ is the counterpart for $\alpha$ when speaking about input/ouput quantization. To avoid the multiplications due to $\beta$ over all the possible configurations of the input, author make use of an approximation. The final operation is thus $sign(\textbf{I}) * sign(\textbf{W}) \odot \textbf{K}\alpha$ with the new element $\textbf{K} = \textbf{A} * \textbf{k}$ that is used to approximate efficiently the $\beta$ multiplications. The matrix $\textbf{A}$ is the per channel average of absolute values and \textbf{k} a filter the same size as the current convolution filters filled with $\frac{1}{w*h}$. In that context, since both matrix are binary the convolution operation is a bitcount operation.
+
 *Binary-Net* :
 
-*XNOR-Net :
+
 
 # PyTorch time
 
 3 paths I know of : external weight manager (an object called at will to quantize), customs layers which autoregulate themselves, or forward/backwards hooks. 
 
 ## External Weight Manager
-Can be applied to any nn.Module on the fly. Severe limitations if we want to modify in-depth the behavior of e.g. grads : would require far more code to do the same results as path 2.
+Can be applied to any nn.Module on the fly. 
 
 '''some_tensor.data.copy_''' allow to modify in place a Pytorch tensor value.
 Logic may be included in the quantization function, e.g. applying to Conv2d layers only. Would need to test additionnal attributes at model initialization to diversify the logics used. E.g. for ResNet, differentiating blocks numbers. 
@@ -91,7 +108,7 @@ Given https://github.com/pytorch/pytorch/issues/262 it seems that it's just awai
 ## Diving deeper
 If you want to optimize the actual hardware ops (CUDA 1 bit, etc) while it's not supported officially by either Pytorch or NVIDIA, you're bound to write custom kernels (a kernel is just a piece of software for CUDA) and custom Pytorch OPS. Cross your fingers for backward compatibility in updates of those frameworks.
 
-Otherwise, FPGA (a customizable piece of hardware) can be used too, mostly if you're planning to use it for inference only (may be overly complicated either way).
+Otherwise, FPGA (a customizable piece of hardware) can be used too, mostly if you're planning to use it for inference only (may be overly complicated for training).
 
 # TL;DR
 You can effectively quantize the building blocs of a neural networks and still manage to reach a good accuracy.
@@ -108,7 +125,7 @@ In the end, you just reduce the amount of information (or reduce the entropy) of
 
 - what are the necessary conditions for a quantization scheme to work ?
 - how would it cope in contexts of smalls tweaks like separable convolutions ?
-- given the finite combination of filters for a binarized CNN, what can we learn about the dynamics of a neural networks ? (works like Capsule Network (Hinton) and the general criticism of current SotA Deep Learning seems pretty relevant) 
+- given the finite combination of filters for a binarized CNN, what can we learn about the dynamics of a neural networks ? 
 
 *This article is a WIP*
 
