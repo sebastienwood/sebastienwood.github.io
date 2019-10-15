@@ -2,7 +2,6 @@
 title: "The challenge for fewer bits in Deep Learning"
 categories: quantization
 date:   2019-05-19 11:30:19 -0400
-hidden: true
 ---
 
 Usual deep learning parameters are stored on 32 bits FP hardware (though 16 bits has became supported by Pytorch, hopefully things are on a good way !).
