@@ -3,6 +3,7 @@ title: "A compendium of tricks and concepts in Deep Learning"
 categories: tricks
 date:   2019-05-19 11:30:19 -0400
 toc_max_header: 2
+visible: 1
 ---
 
 Sometime you wish to had all the tricks and concepts of Deep Learnings/machine learning summarized in one place. I hope to gather them all slowly but steadily in this post. Everything is accessible with the navigation bar on the right.

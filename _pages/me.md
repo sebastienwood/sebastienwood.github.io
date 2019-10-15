@@ -1,12 +1,25 @@
 ---
-title: "About me :smile:"
+title: "Bio"
 permalink: /me/
 ---
 
 # Bio
-I'm a student @ Polytechnique Montreal, soon to be in PhD :blush:. My field of interest is in machine learning, optimisation and related challenges, but I'm an airhead and can get attracted to too many interesting things :satisfied:. 
+I'm a student @ Polytechnique Montreal, working toward a Ph.D. degree supervised by François Leduc-Primeau and Yvon Savaria. My current projects relates to efficiency in machine learning. My research interest are in optimisation. 
 
 # Degrees
+## Ph.D in Electrical Engineering - Integrated Circuits
+Program : 
+- detection and estimation theory
+- VLSI
+
+Teaching assistant :
+- ELE1300 Logical Circuits
+
+Intern supervision : 
+- Narimane Zennaki for the UPIR (Introduction to Research) 2019 grant
+
+Survey the publication page if you're interested in the outcome :smile:.
+
 ## Master in Industrial Engineering and Mathematics 
 ### (Exchange program with Polytechnique Montreal, QC Canada)
 Program : 
@@ -29,10 +42,10 @@ Relevant themes :
 
 ## DUT in Quality Logistics and Organisation 
 ### (IUT de Lorient, France)
-How to improve processes, projects, reduce waste, and so on :smile:.
+How to improve processes, projects, reduce waste, and so on.
 
 ## And before
-I did a baccalaureate in litterature and dropped out of high school given my interest in that, then I worked for a few years before finding something worth studying :relaxed:.
+I did a baccalaureate in litterature then struggled to find my place in society.
 
 ## Contact me
-My Twitter would be the easiest way for now : @sebastien_wood
+Twitter ! :smile: @sebastien_wood
