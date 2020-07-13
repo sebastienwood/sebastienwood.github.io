@@ -11,14 +11,15 @@ I'm a student @ Polytechnique Montreal, working toward a Ph.D. degree supervised
 Program : 
 - detection and estimation theory
 - VLSI
+- Machine Learning/Deep Learning
+- Matrix and tensor factorization techniques for Deep Learning at UDEM
 
 Teaching assistant :
 - ELE1300 Logical Circuits
 
-Intern supervision : 
-- Narimane Zennaki for the UPIR (Introduction to Research) 2019 grant
-
-Survey the publication page if you're interested in the outcome :smile:.
+Intern supervision :
+- Victor Gaudreau Blouin (Undergraduate Research Internship) Summer 2020 IVADO grant 
+- Narimane Zennaki for the UPIR (Introduction to Research) 2019 grant; on 
 
 ## Master in Industrial Engineering and Mathematics 
 ### (Exchange program with Polytechnique Montreal, QC Canada)
@@ -43,9 +44,6 @@ Relevant themes :
 ## DUT in Quality Logistics and Organisation 
 ### (IUT de Lorient, France)
 How to improve processes, projects, reduce waste, and so on.
-
-## And before
-I did a baccalaureate in litterature then struggled to find my place in society.
 
 ## Contact me
 Twitter ! :smile: @sebastien_wood
